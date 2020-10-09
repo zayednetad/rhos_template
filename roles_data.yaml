@@ -388,12 +388,15 @@
   tags:
     - external_bridge
   networks:
+    External:
+      subnet: external_subnet
     InternalApi:
       subnet: internal_api_subnet
     Tenant:
       subnet: tenant_subnet
     Storage:
       subnet: storage_subnet
+  default_route_networks: ['External']
   HostnameFormatDefault: '%stackname%-novacompute-%index%'
   RoleParametersDefault:
     TunedProfileName: "cpu-partitioning"
@@ -684,12 +687,15 @@
   tags:
     - external_bridge
   networks:
+    External:
+      subnet: external_subnet
     InternalApi:
       subnet: internal_api_subnet
     Tenant:
       subnet: tenant_subnet
     Storage:
       subnet: storage_subnet
+  default_route_networks: ['External']
   HostnameFormatDefault: '%stackname%-computert-%index%'
   ImageDefault: overcloud-realtime-compute
   RoleParametersDefault:
