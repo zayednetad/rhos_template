@@ -1,0 +1,9 @@
+parameter_defaults:
+  OvercloudControllerFlavor: control
+  OvercloudControllerBFlavor: controllerb
+  OvercloudComputeFlavor: compute
+  OvercloudComputeRtFlavor: computert
+  ControllerCount: 1
+  ControllerBCount: 2 
+  ComputeCount: 1
+  ComputeRtCount: 1

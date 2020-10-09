@@ -1,0 +1,90 @@
+heat_template_version: rocky
+
+description: >
+  OpenStack Sahara service configured with Puppet
+parameters:
+  EndpointMap:
+    default: {}
+    description: Mapping of service endpoint -> protocol. Typically set
+                 via parameter_defaults in the resource registry.
+    type: json
+  ServiceData:
+    default: {}
+    description: Dictionary packing service data
+    type: json
+  ServiceNetMap:
+    default: {}
+    description: Mapping of service_name -> network name. Typically set
+                 via parameter_defaults in the resource registry.  This
+                 mapping overrides those in ServiceNetMapDefaults.
+    type: json
+  DefaultPasswords:
+    default: {}
+    type: json
+  RoleName:
+    default: ''
+    description: Role name on which the service is applied
+    type: string
+  RoleParameters:
+    default: {}
+    description: Parameters specific to the role
+    type: json
+
+outputs:
+  role_data:
+    description: Role data for disablement of Sahara API role.
+    value:
+      service_name: disable-sahara-api
+      upgrade_tasks:
+        - name: Check openstack-sahara-api is enabled
+          when:
+            - step|int == 0
+          block:
+            - name: Check openstack-sahara-api is enabled
+              command: systemctl is-enabled tripleo_openstack-sahara-api
+              ignore_errors: True
+              register: sahara_api_enabled_result
+            - name: Set fact sahara_api_enabled
+              set_fact:
+                sahara_api_enabled: "{{ sahara_api_enabled_result.rc == 0 }}"
+        - name: Disable openstack-sahara-api
+          when:
+            - step|int == 1
+          block:
+            - name: Disable openstack-sahara-api
+              import_role:
+                name: tripleo-container-stop
+              vars:
+                tripleo_containers_to_stop:
+                  - openstack-sahara-api
+              when:
+                - sahara_api_enabled|bool
+          block:
+            - name: Remove openstack-sahara-api
+              import_role:
+                name: tripleo-container-rm
+              vars:
+                tripleo_containers_to_rm:
+                  - openstack-sahara-api
+                tripleo_container_cli:
+                  - podman
+              when:
+                - sahara_api_enabled|bool
+      fast_forward_upgrade_tasks:
+        - when:
+            - step|int == 0
+            - release == 'train'
+          block:
+            - name: FFU check openstack-sahara-api is enabled
+              command: systemctl is-enabled openstack-sahara-api
+              ignore_errors: True
+              register: sahara_api_enabled_result
+            - name: Set fact sahara_api_enabled
+              set_fact:
+                sahara_api_enabled: "{{ sahara_api_enabled_result.rc == 0 }}"
+        - name: FFU stop and disable openstack-sahara-api
+          service: name=openstack-sahara-api state=stopped enabled=no
+          when:
+            - step|int == 1
+            - release == 'train'
+            - sahara_api_enabled|bool

@@ -1,0 +1,5 @@
+# This heat environment can be used to disable all of the sahara services.
+
+resource_registry:
+  OS::TripleO::Services::SaharaApi: ../deployment/sahara/disable-sahara-api.yaml
+  OS::TripleO::Services::SaharaEngine: ../deployment/sahara/disable-sahara-engine.yaml
