@@ -145,23 +145,23 @@ parameter_defaults:
     NovaVcpuPinSet: 2-35,38-71
     NovaComputeCpuSharedSet:  0,1,36,37
     NeutronPhysicalDevMappings:
-      - fronthaul1-edge1:ens4f0
-      - fronthaul2-edge1:ens4f1
-      - sriov1-edge1:ens7f0
-      - sriov2-edge1:ens7f1
+      - fronthaul1-edge1:p4p1
+      - fronthaul2-edge1:p4p3
+      - sriov1-edge1:p7p1
+      - sriov2-edge1:p7p2
     NeutronSriovNumVFs:
-      - ens7f0:4
-      - ens7f1:4
-      - ens4f0:2
-      - ens4f1:2
+      - p7p1:4
+      - p7p2:4
+      - p4p1:2
+      - p4p3:2
     NovaPCIPassthrough:
-      - devname: "ens4f0"
+      - devname: "p4p1"
         physical_network: "fronthaul1-edge1"
-      - devname: "ens4f1"
+      - devname: "p4p3"
         physical_network: "fronthaul2-edge1"
-      - devname: "ens7f0"
+      - devname: "p7p1"
         physical_network: "sriov1-edge1"
-      - devname: "ens7f1"
+      - devname: "p7p2"
         physical_network: "sriov2-edge1"
       - vendor_id: "1172"
         product_id: "5050"

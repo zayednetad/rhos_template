@@ -208,12 +208,12 @@ resources:
                     get_param: BondInterfaceOvsOptions
                   members:
                   - type: interface
-                    name: ens2f0
+                    name: p2p1
                     mtu:
                       get_attr: [MinViableMtu, value]
                     primary: true
                   - type: interface
-                    name: ens2f1
+                    name: p2p2
                     mtu:
                       get_attr: [MinViableMtu, value]
                 - type: vlan
@@ -289,28 +289,28 @@ resources:
                 use_dhcp: false
                 defroute: false
               - type: interface
-                name: ens7f0
+                name: p7p1
                 mtu: 9000
                 use_dhcp: false
                 defroute: false
                 nm_controlled: true
                 hotplug: true
               - type: interface
-                name: ens7f1
+                name: p7p2
                 mtu: 9000
                 use_dhcp: false
                 defroute: false
                 nm_controlled: true
                 hotplug: true
               - type: interface
-                name: ens4f0
+                name: p4p1
                 mtu: 9000
                 use_dhcp: false
                 defroute: false
                 nm_controlled: true
                 hotplug: true
               - type: interface
-                name: ens4f1
+                name: p4p3
                 mtu: 9000
                 use_dhcp: false
                 defroute: false
