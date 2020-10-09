@@ -290,7 +290,6 @@ resources:
                 defroute: false
               - type: interface
                 name: ens7f0
-                onboot: false
                 mtu: 9000
                 use_dhcp: false
                 defroute: false
@@ -298,7 +297,6 @@ resources:
                 hotplug: true
               - type: interface
                 name: ens7f1
-                onboot: false
                 mtu: 9000
                 use_dhcp: false
                 defroute: false
@@ -306,7 +304,6 @@ resources:
                 hotplug: true
               - type: interface
                 name: ens4f0
-                onboot: false
                 mtu: 9000
                 use_dhcp: false
                 defroute: false
@@ -314,21 +311,6 @@ resources:
                 hotplug: true
               - type: interface
                 name: ens4f1
-                onboot: false
-                mtu: 9000
-                use_dhcp: false
-                defroute: false
-                nm_controlled: true
-                hotplug: true
-              - type: interface
-                name: p4p1
-                mtu: 9000
-                use_dhcp: false
-                defroute: false
-                nm_controlled: true
-                hotplug: true
-              - type: interface
-                name: p4p3
                 mtu: 9000
                 use_dhcp: false
                 defroute: false
