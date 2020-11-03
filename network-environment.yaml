@@ -102,7 +102,7 @@ parameter_defaults:
   # List of Neutron network types for tenant networks (will be used in order)
   NeutronNetworkType: 'vxlan,vlan'
   # Neutron VLAN ranges per network, for example 'datacentre:1:499,tenant:500:1000':
-  NeutronNetworkVLANRanges: 'datacentre:1:1000'
+  #NeutronNetworkVLANRanges: 'datacentre:1:1000'
   # Customize bonding options, e.g. "mode=4 lacp_rate=1 updelay=1000 miimon=100"
   # for Linux bonds w/LACP, or "bond_mode=active-backup" for OVS active/backup.
   #BondInterfaceOvsOptions: "bond_mode=active-backup"
@@ -111,6 +111,11 @@ parameter_defaults:
     - datacentre:br-ex
   NeutronNetworkVLANRanges:
     - datacentre:2:4090
+    - sriov1-edge1:1:4095
+    - sriov2-edge1:1:4095
+    - fronthaul1-edge1:1:4095
+    - fronthaul2-edge1:1:4095
+
   NeutronFlatNetworks: ''
 
   ComputeParameters:
@@ -174,3 +179,4 @@ parameter_defaults:
         vendor_id: '1172'
         product_id: '5050'
         device_type: 'type-VF'
+  NetworkDeploymentActions: ['CREATE','UPDATE']
