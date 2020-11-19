@@ -208,7 +208,7 @@ resources:
                     get_param: BondInterfaceOvsOptions
                   members:
                   - type: interface
-                    name: ens2f0
+                    name: ens7f1
                     mtu:
                       get_attr: [MinViableMtu, value]
                     primary: true
@@ -287,7 +287,7 @@ resources:
                 nm_controlled: true
                 hotplug: true
               - type: interface
-                name: ens7f1
+                name: ens2f0
                 onboot: false
                 mtu: 9000
                 use_dhcp: false

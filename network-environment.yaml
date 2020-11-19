@@ -111,10 +111,10 @@ parameter_defaults:
     - datacentre:br-ex
   NeutronNetworkVLANRanges:
     - datacentre:2:4090
-    - sriov1-edge1:1:4095
-    - sriov2-edge1:1:4095
-    - fronthaul1-edge1:1:4095
-    - fronthaul2-edge1:1:4095
+    - sriov1-edge1:2:4090
+    - sriov2-edge1:2:4090
+    - fronthaul1-edge1:2:4090
+    - fronthaul2-edge1:2:4090
 
   NeutronFlatNetworks: ''
 
@@ -127,14 +127,14 @@ parameter_defaults:
     NovaComputeCpuSharedSet: 0,1,36,37
     NeutronPhysicalDevMappings:
       - sriov1-edge1:ens2f1
-      - sriov2-edge1:ens7f1
+      - sriov2-edge1:ens2f0
     NeutronSriovNumVFs:
       - ens2f1:8
-      - ens7f1:8
+      - ens2f0:8
     NovaPCIPassthrough:
       - devname: "ens2f1"
         physical_network: "sriov1-edge1"
-      - devname: "ens7f1"
+      - devname: "ens2f0"
         physical_network: "sriov2-edge1"
 
   ComputeExtraConfig:
@@ -144,7 +144,7 @@ parameter_defaults:
   ComputeRtImage: "overcloud-realtime-compute"
   ComputeRtParameters:
     KernelArgs: "default_hugepagesz=1GB hugepagesz=1G hugepages=350 nx_huge_pages_recovery_ratio=0 intel_iommu=on iommu=pt elevator=cfq audit=1 nomodeset intel_idle.max_cstate=1 tsc=reliable rcu_nocb_poll=1 clocksource=tsc pcie_aspm.policy=performance"
-    IsolCpusList:  2-35,38-71
+    IsolCpusList: 2-35,38-71
     # switch to NovaVcpuPinSet as work around for bz-1835705
     #NovaComputeCpuDedicatedSet:  2-39,42-79
     NovaVcpuPinSet: 2-35,38-71
@@ -179,4 +179,13 @@ parameter_defaults:
         vendor_id: '1172'
         product_id: '5050'
         device_type: 'type-VF'
+
   NetworkDeploymentActions: ['CREATE','UPDATE']
+
+  ControllerExtraConfig:
+    nova::cpu_allocation_ratio: 1
+    nova::pci::aliases:
+      - name: vc_fpga
+        vendor_id: '1172'
+        product_id: '5050'
+        device_type: 'type-VF'
