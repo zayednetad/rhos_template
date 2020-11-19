@@ -189,3 +189,15 @@ parameter_defaults:
         vendor_id: '1172'
         product_id: '5050'
         device_type: 'type-VF'
+
+  NovaSchedulerDefaultFilters:
+    - RetryFilter
+    - AvailabilityZoneFilter
+    - ComputeFilter
+    - AggregateInstanceExtraSpecsFilter
+    - ComputeCapabilitiesFilter
+    - ImagePropertiesFilter
+    - ServerGroupAntiAffinityFilter
+    - ServerGroupAffinityFilter
+    - PciPassthroughFilter
+    - NUMATopologyFilter
